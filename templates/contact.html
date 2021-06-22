@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <title>AliwSoft</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static '/css/main.css'%}">
+    <link rel="icon" href="{% static 'static/Adsız.png'%}" type="image/x-icon"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  </head>
+  <body >
+    
+    <div class="form">
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-4 col-12 mx-auto">
+                    <form method="POST" id="myform" action="/gönder" style="margin-top: 100px;" class="mx-auto">{% csrf_token %}
+                        <input id="name" class="form-control mx-auto" style="width: 70%;" type="text" name="name" placeholder="İsim" autocomplete="off" required>
+                        <input id="email" type="email" name="email" class="form-control" placeholder="E-Mail" required>
+                        <textarea id="mesag" type="text" name="message" placeholder="Mesaj" autocomplete="off" class="form-control" required rows="10" ></textarea>
+                        <input class="form-control mx-auto" type="submit" 
+                        value="Gönder" style=" width: 30%;background-color: rgb(240, 236, 229);border: 2px solid rgb(132, 132, 226);">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+  
+  
+  <div id="aliss">
+    <div class="footer" >
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-12" style="margin-top: 20px;">
+            <img src="{% static '/static/ali.jpg'%}" width="200px" height="200px" style="border-radius: 100px;" alt="">
+          </div>
+          <div class="col-md-9 col-12 mx-auto" style="margin-top: 10px;">
+            <h1>Aliwko#0001</h1><br>
+            <h4>"The Developer who wants be a Full-Stack"</h4>
+            <a href="/" style="width: 16%;" class="btn btn-primary" id="custombtn4">HOME</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <div id="ali" style="position: fixed;top: 0;width: 100%;border-bottom: 1px solid rgb(218, 210, 210);">
+    <nav class="navbar navbar-expand-lg  navbar-light" id="nav" style="transition: .5s;">
+      <a class="navbar-brand" href="/"><img src="{% static '/static/20210619_204812.jpg'%}" width="100px" height="50px" alt=""></a>
+      <button style="transition: .9s;" class="navbar-toggler" type="button" data-toggle="collapse" 
+      data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" 
+      aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <h1 style="background-color: rgb(240, 232, 232) "></h1>
+      <div class="collapse navbar-collapse " id="navbarTogglerDemo02">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link"  href="/contact"><b>İletişim</b> </a>
+          </li>
+        </ul>
+    </nav>
+  </div>
+  <button id="btn" type="button" style="transition: .5s;display: none;position:fixed ;background-color: transparent;right: 50px;bottom: 50px;border: 0px; ">
+    <img src="https://img.icons8.com/ios/50/000000/send-letter--v1.png"/>
+  </button>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+      $(function () {
+        $("#myform").submit(function (e) {
+          e.preventDefault()
+          var formdata =$(this).serialize()
+          $.ajax({
+            type:"json",
+            method:"POST",
+            data:formdata,
+            url:"/gönder",
+            success: function (data) {
+              
+              swal("Mesajını Aldım !", "Yakında Geri Dönüşü yapıyorum!", "success");
+
+          }
+            
+          }).then(function () {
+            $("#mesag").val("")
+            $("#name").val("")
+            $("#email").val("")
+          })
+        })
+        $("#btn").click(function () {
+          $("html,body").animate({scrollTop:0},400)
+        })
+        $("#btn").mouseenter(function () {
+          $(this).css("bottom","60px").css("transform","scale(1.1)")
+        })
+        $("#btn").mouseleave(function () {
+          $(this).css("bottom","50px").css("transform","scale(1)")
+        })
+        $(window).scroll(function () {
+          if($(this).scrollTop()>40) {
+            $("#nav").css("background-color","white").css('height',"50px")
+            
+            $("#btn").fadeIn(500)
+          }else{
+            $("#btn").fadeOut(500)
+            $("#nav").css("background-color","transparent").css('height',"70px")
+          }
+        })
+        $("input").focusin(function () {
+            $(this).css("border","2px solid #193441")
+        })
+        $("input").focusout(function () {
+            $(this).css("border","1px solid gray")
+        })
+    })  
+    </script>
+    <script>
+      $(function () {
+        $(window).scroll(function () {
+          if($(this).scrollTop()>40)
+          {
+            $(".navbar").css("background-color","white")
+          }else{
+            $(".navbar").css("background-color","transparent")
+          }
+        })
+      })
+    </script>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+  </body>
+</html>
