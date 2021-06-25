@@ -86,7 +86,7 @@
     <script>
       $(function () {
         $("#myform").submit(function (e) {
-          e.preventDefault()
+          
           var formdata =$(this).serialize()
           $.ajax({
             type:"json",
