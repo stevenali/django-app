@@ -3,9 +3,7 @@ from django.http.response import JsonResponse
 from django.shortcuts import render
 from .models import Contact
 from django.views.decorators.csrf import csrf_exempt
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
+from django.core.mail import EmailMessage , send_mail
 def index(request):
     return render(request,'index.html')
 def contact(request):
@@ -16,11 +14,15 @@ def contactbackend(request):
         name = request.POST["name"]
         email = request.POST["email"]
         message = request.POST["message"]
-        html_content = f"<h1>{name}</h1><h4>{email}</h4><h4>{message}</h4>"
-        text_content = strip_tags(html_content)
-        msg = EmailMultiAlternatives("subject", text_content, 'noreply.aliwkochannels@gmail.com', ["alicankilic1905@hotmail.com"])
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
+        email_subject1 = "merhaba "+name
+        email_body1 = f"{email}     -     {message}"
+        email2 = EmailMessage(
+            email_subject1 ,
+            email_body1,
+            'noreply.aliwkochannels@gmail.com',
+            ["alicankilic1905@hotmail.com"],
+        )
+        email2.send(fail_silently = False)
         return JsonResponse({"sa":"as"})
     else:
         return redirect("/")
