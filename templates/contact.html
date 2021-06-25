@@ -87,6 +87,7 @@
       $(function () {
         $("#myform").submit(function (e) {
           e.preventDefault()
+          swal("Mesajını Aldım !", "Yakında Geri Dönüşü yapıyorum!", "success");
           var formdata =$(this).serialize()
           $.ajax({
             type:"json",
@@ -95,7 +96,7 @@
             url:"/gönder",
             success: function (data) {
               
-              swal("Mesajını Aldım !", "Yakında Geri Dönüşü yapıyorum!", "success");
+              
 
           }
             
